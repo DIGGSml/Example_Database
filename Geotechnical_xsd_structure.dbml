@@ -1,0 +1,262 @@
+Table AtterbergLimitsTestType {
+  ovenDriedBeforeTest boolean [note: 'True if sample is oven dried at 100 deg C or hotter prior to testing; otherwise false. True value for this property should produce a liquid_limit_oven_dried reportable result']
+  sieveProcedure reference [note: 'Value is wet if wet sieving on No. 40 screen (0.425 mm) is performed; dry if dry sieving on No. 40 screen (0.425 mm) is performed; none if no sieving is performed (sample is all finer-grained than 0.425 mm or coarser particles are picked out; unknown if not known. If value is None, the property handRemoved should be used.']
+  handRemoved boolean [note: 'True if plus screen No. 40 particles are removed from the sample by hand, false if not. If no sieving is performed this property is required']
+  percentRetainedNo40 DiggsStringType [note: 'Estimate of percent of sample retained on No. 40 screen. If no sieving is performed, this value would hold the estimated percentage of plus 40 particles removed by hand from the sample, if applicable. String type.']
+  specimenInitialState AtterbergInitialConditionEnumType [note: '']
+  multiPointLLmethod boolean [note: 'Value is true if the liquid limit method is multi-point, false if liquid limit is calculated from a single point test']
+  casagrandeTrial CasagrandeTrialPropertyType [note: 'Property containing one or more CasagrandeTrial or FallConeTrial objects detailing results of these various liquid limit tests
+']
+  fallConeTrial FallConeTrialPropertyType [note: 'Property containing one or more CasagrandeTrial or FallConeTrial objects detailing results of these various liquid limit tests
+']
+  plasticLimitTrial PlasticLimitTrialPropertyType [note: 'Property containing one or more PlasticLimitTrial objects detailing the results of each plastic limit trial']
+  shrinkageLimitTrial ShrinkageLimitTrialPropertyType [note: 'Property containing one or more ShrinkageLimitTrial objects detailing the results of each shrinkage limit trial']
+}
+
+Table CasagrandeTrial {
+  trialNo positiveCount [note: '']
+  isManual boolean [note: 'True if the liquid limit device is manual crank, false if motorized']
+  blowCount positiveCount [note: 'The number of drops of the brass cup needed to close the groove in the sample
+']
+  waterContent PercentDoubleType [note: 'Moisture content for this trial']
+}
+
+Table FallConeTrialType {
+  trialNo positiveCount [note: '']
+  penetration lengthMeasure [note: 'The distance fall cone penetrated soil sample in this trial
+']
+  waterContent PercentDoubleType [note: 'Moisture content for this trial']
+}
+
+Table CasagrandeTrialPropertyType {
+  CasagrandeTrial reference [note: '']
+}
+
+Table FallConeTrialPropertyType {
+  FallConeTrial reference [note: '']
+}
+
+Table PlasticLimitTrialType {
+  trialNo positiveCount [note: '']
+  isManual boolean [note: 'True if thread rollout is done manually, false if otherwise']
+  waterContent PercentDoubleType [note: 'Moisture content for this trial']
+}
+
+Table PlasticLimitTrialPropertyType {
+  PlasticLimitTrial reference [note: '']
+}
+
+Table ShrinkageLimitTrialType {
+  trialNo positiveCount [note: '']
+  waterContentWetSoil PercentDoubleType [note: 'Moisture content for the wet soil paste']
+  volumeWetSoil volumeMeasure [note: '']
+  volumeDrySoil volumeMeasure [note: '']
+  massDrySoil massMeasure [note: '']
+}
+
+Table ShrinkageLimitTrialPropertyType {
+  ShrinkageLimitTrial reference [note: '']
+}
+
+Table LabCompactionTestType {
+  compactionTestType CompactionTestEnumType [note: '']
+  mouldDiameter lengthMeasure [note: '']
+  mouldVolume volumeMeasure [note: '']
+  rammerDiameter lengthMeasure [note: '']
+  rammerMass massMeasure [note: '']
+  rammerDrop lengthMeasure [note: '']
+  rammerIsManual boolean [note: '']
+  numberOfLayers positiveCount [note: '']
+  blowsPerLayer positiveCount [note: '']
+  trial LabCompactionTestTrialPropertyType [note: '']
+}
+
+Table LabCompactionTestTrialPropertyType {
+  LabCompactionTestTrial reference [note: '']
+}
+
+Table LabCompactionTestTrialType {
+  trialNo positiveCount [note: 'The count of the test cycle']
+  waterContent PercentMeasureType [note: 'Moisture content measured in this trial.']
+  dryDensity DensityOrUnitWeightMeasureType [note: 'Dry unit weight measured in this trial.']
+  moistureAdjustment massMeasure [note: 'Weight of water added or subtracted from this trial specimen (California Test 216)']
+  tamperReading double [note: 'Tamper reading (California Test 216)']
+  otherTrialProperty ParameterPropertyType [note: '']
+}
+
+Table DrivenPenetrationTestType {
+  penetrationTestType CodeType [note: 'Type of penetration test performed, e.g. Standard Penetration Test, Becker Hammer Test, etc.']
+  hammerType CodeType [note: 'The type of hammer used for the sampling and penetration, including the mechanism used to lift and drop the hammer assembly.  Additional details about the sampler (e.g. cathead diameter, number of turns, etc) can be mapped to the equipment object.']
+  hammerMass massMeasure [note: 'The hammer mass used to drive the sampler.']
+  hammerDropHeight lengthMeasure [note: 'The hammer drop height.']
+  hammerEfficiency PercentMeasureType [note: 'A description of the energy efficiency of the hammer.']
+  samplerLength lengthMeasure [note: 'The length of the sampler barrel.']
+  samplerInternalDiameter lengthMeasure [note: 'The inside diameter of the sampler.']
+  samplerLinerDescription DiggsStringType [note: 'A description of the liner, if used.']
+  samplerRetainerDescription DiggsStringType [note: 'A description of the basket retainer, if used.']
+  rodType CodeType [note: 'The type of sampling rods used for penetration.']
+  rodExternalDiameter lengthMeasure [note: 'The external diameter of the sampling rods.']
+  rodWeight perLengthUom [note: 'The drive rod weight per unit length.']
+  depthCasing lengthMeasure [note: 'Casing depth at time of test']
+  selfWeightPenetration lengthMeasure [note: 'The distance the sampler penetrates the soil under its own weight before applying hammer blows']
+  waterDepth lengthMeasure [note: 'Depth to water at time of test.']
+  totalPenetration lengthMeasure [note: 'Total distance the sampler penetrated the soil following completion of the procedure']
+  driveSet DriveSetPropertyType [note: '']
+}
+
+Table WaterContentTestType {
+  waterContentFromTrimmings boolean [note: 'True if water content measurement is taken from trimmings of a prepared specimen; false if derived from an entire specimen']
+  dryingTemperature thermodynamicTemperatureMeasure [note: 'Temperature of the oven or other drying apparatus']
+  dryingTime timeMeasure [note: 'Amount of time specimen was maintained at drying temperature']
+}
+
+Table ParticleSizeTestType {
+  sieveAnalysis SieveAnalysisPropertyType [note: '']
+  hydrometer HydrometerPropertyType [note: '']
+}
+
+Table SieveAnalysisType {
+  wetSieved boolean [note: 'True if the sample is wet sieved (eg. washed through the screen; false if not.']
+  sandGravelConsistency CodeType [note: 'A description of the condition of sand and gravel size particles in the specimen that could bias the particle-size results (eg. hard, soft, friable, weathered). Intended to come from a controlled list.']
+  otherSieveAnalysisProperty ParameterPropertyType [note: '']
+  gradingData GradingPropertyType [note: '']
+  panData PanDataPropertyType [note: '']
+}
+
+Table SieveAnalysisPropertyType {
+  SieveAnalysis reference [note: '']
+}
+
+Table HydrometerType {
+  drySoilWeight massMeasure [note: 'Weight of the sediment used for the test (after passing through a sieve)']
+  sizeFractionUsed SizeFractionPropertyType [note: 'Diameter of the sieve used (typically 2 mm - No. 10 sieve)']
+  soakingPeriod TimeIntervalPropertyType [note: 'Time interval that sediment is left to stand in cylinder prior to test']
+  dispersionDevice CodeType [note: 'Device used for dispersing sediment (eg. magnetic stirrer, air jet, etc.). Intended to come from a controlled list.']
+  dispersionDuration TimeIntervalPropertyType [note: 'Duration of dispersion']
+  hydrometerType CodeType [note: 'Type of hydrometer used (eg. 151H, 152H). Intended to come from a controlled list.']
+  specificGravityUsed double [note: 'Specific gravity used for calculations']
+  otherHydrometerProperty ParameterPropertyType [note: '']
+  sedimentationData SedimentationPropertyType [note: '']
+}
+
+Table HydrometerPropertyType {
+  Hydrometer reference [note: '']
+}
+
+Table SedimentationType {
+  clockTime UnifiedDateTimeType [note: 'Time that measurement is taken']
+  elapsedTime timeMeasure [note: 'The elapsed time of the hydrometer reading since the start of the test']
+  hydrometerReading densityMeasure [note: 'The value read from the hydrometer at reading time']
+  temperature thermodynamicTemperatureMeasure [note: 'The temperature at the time of the hydrometer reading']
+  compositeCorrection densityMeasure [note: 'The composite correction applied']
+  correctedReading densityMeasure [note: 'The corrected hydrometer reading after correction applied']
+  effectiveLength lengthMeasure [note: 'The the distance through which soil particles fall in a given
+period of time']
+  particleDiameter lengthMeasure [note: 'Particle size computed from Stoke\'s Law']
+  percentPassing PercentMeasureType [note: 'Percent of sediment smaller than particle diameter']
+}
+
+Table SedimentationPropertyType {
+  Sedimentation reference [note: '']
+}
+
+Table DriveSetType {
+  index positiveInteger [note: 'An integer that indicates the location of the drive set. The first or seating drive of a test would be assigned an index of 1, the next drive set an index of 2, etc. An index of 1 should only be used for the seating drive.']
+  blowCount positiveInteger [note: 'An integer value of the number of hammer blows in this drive set.']
+  penetration lengthMeasure [note: 'The distance the sampler is driven into the soil in this drive set.']
+  delay DelayEventPropertyType [note: 'Duration of delay before increment started.']
+  torque momentOfForceMeasure [note: 'Maximum torque required to rotate rods.']
+}
+
+Table DriveSetPropertyType {
+  DriveSet reference [note: '']
+}
+
+Table GradingType {
+  particleSize lengthMeasure [note: 'Size of this screen openings of the sieve or grain diameter evaluated via hydrometer, related to the value entered in the percentPassing or percentRetained property.
+']
+  sieveNumber CodeType [note: 'The number of the sieve (for sieve analyses)']
+  percentPassing PercentMeasureType [note: 'The amount of the total sample "passing" (that has particle size smaller than) this size fraction. Expressed as a weight percent.']
+  percentRetained PercentMeasureType [note: 'The amount of the total sample "retained" at this size fraction (that has particle size greater or equal to the particleSize property. Expressed as a weight percent.']
+  weightRetained massMeasure [note: 'The dry weight of sample "retained" at this size fraction (that has particle size greater or equal to the particleSize property.']
+  otherGradingProperty ParameterPropertyType [note: 'name/value pairs of other grading parameters not specifically in the Grading object']
+}
+
+Table GradingPropertyType {
+  Grading reference [note: '']
+}
+
+Table PanDataType {
+  percentLoss PercentDoubleType [note: 'Percent of the sample lost as a result of the sieve analysis. This is equal to 1- (final weight (cumulative weights of all particle sizes) / initial sample weight)* 100']
+  percentRetained PercentMeasureType [note: 'The amount of the cumulative soil sample "retained" on the pan. Expressed as a weight percent.']
+  weightRetained massMeasure [note: 'The cumulative dry weight of sample "retained" on the pan. This value is less than or equal to the dry weight of the sample, depending on loss.']
+  otherGradingProperty ParameterPropertyType [note: 'name/value pairs of other grading parameters not specifically in the Grading object']
+}
+
+Table PanDataPropertyType {
+  PanData reference [note: '']
+}
+
+Table SpecifiGravityTestType {
+  waterTemperature thermodynamicTemperatureMeasure [note: 'Size fraction from which test portion was obtained.']
+  temperatureWaterAndSoil thermodynamicTemperatureMeasure [note: '']
+  correctionFactorForWaterTemperature double [note: '']
+}
+
+Table StaticConePenetrationTestType {
+  penetrometerType CodeType [note: 'The type of static cone penetrometer used for testing.']
+  distanceTipToSleeve lengthMeasure [note: 'The distance between the tip and the center of the friction sleeve. A unit of measure is required in the uom attribute.']
+  frictionReducer DiggsStringType [note: 'A description of the type, size and location of the friction reducer behind the base of the cone should be reported if used']
+  frictionSleeveArea areaMeasure [note: 'The surface area of the friction sleeve located immediately behind the penetrometer tip.']
+  netAreaRatioCorrection double [note: 'The correction necessary to adjust the penetration cone resistance due to penetration water pressures acting behind the cone tip.']
+  penetrationRate velocityMeasure [note: 'The rate of advance of the penetrometer.']
+  piezoconeType CodeType [note: 'The type of Piezocone is defined in part by the location of the filter element.']
+  porePressureElementInfo PorePressureElementPropertyType [note: '']
+  pushRodType CodeType [note: 'The type of pushing rods used for CPT penetration. Standard nomenclature can be used such as A-rod or N-rod']
+  tipCapacity forceMeasure [note: 'The capacity of the tip load cell.']
+  sleeveCapacity forceMeasure [note: 'The capacity of the sleeve load cell.']
+  surfaceCapacity forceMeasure [note: 'The capacity of the surface load cell.']
+  tipApexAngle planeAngleMeasure [note: 'The apex angle of the conical point of the penetrometer tip.']
+  tipArea areaMeasure [note: 'The conical base area of the penetrometer tip.']
+}
+
+Table PorePressureElementType {
+  cellId DiggsStringType [note: 'The id number or value that identifies this filter element']
+  filterElementLocation lengthMeasure [note: 'The location of the filter element as distance from the cone tip']
+  poreCapacity generalMeasureType [note: 'The capacity of the pore pressure load cell.']
+  porousElementType CodeType [note: 'The type of material used as porous filter element. The following materials are typically used: a) plastic, b) sintered bronze, c) sintered steel, d) ceramic, or e) other. This value is extendable using Other: xx.']
+  saturationFluid CodeType [note: 'The fluid used to saturate the porous filter element. The following deaired fluids are typically used: a) water, b) glycerin, c) silicon oil, or d) other This value is extendable using Other: xx.']
+  saturationMethod CodeType [note: 'A description of the procedure used to saturate the porous filter element.']
+  saturationMethodRef MetadataReferenceType [note: '']
+}
+
+Table SamplingFeaturePropertyType {
+  AnyItem reference [note: '']
+}
+
+Table PorePressureElementPropertyType {
+  PorePressureElement reference [note: '']
+}
+
+Table WirelineLogType {
+  runNumber DiggsStringType [note: 'Log run number. This should normally be a number; however some legacy systems encode other information in this value.']
+  bhaRunNumber positiveCount [note: 'The bottom hole assembly run number associated with this log.']
+  logParameter ParameterPropertyType [note: 'Log parameters that apply to the overall log. ']
+}
+
+Table LabChemicalTestType {
+  placeholder_column varchar [note: 'Extends AbstractLaboratoryTestType. No actual columns, placeholder for diagram']
+}
+
+ Ref:AtterbergLimitsTestType.casagrandeTrial > CasagrandeTrialPropertyType.CasagrandeTrial
+ Ref:AtterbergLimitsTestType.fallConeTrial > FallConeTrialPropertyType.FallConeTrial
+ Ref:AtterbergLimitsTestType.plasticLimitTrial > PlasticLimitTrialPropertyType.PlasticLimitTrial
+ Ref:AtterbergLimitsTestType.shrinkageLimitTrial > ShrinkageLimitTrialPropertyType.ShrinkageLimitTrial
+ Ref: DrivenPenetrationTestType.driveSet > DriveSetPropertyType.DriveSet
+ Ref: StaticConePenetrationTestType.porePressureElementInfo > PorePressureElementPropertyType.PorePressureElement
+ Ref: ParticleSizeTestType.sieveAnalysis > SieveAnalysisPropertyType.SieveAnalysis
+ Ref: SieveAnalysisType.panData > PanDataPropertyType.PanData
+ Ref: ParticleSizeTestType.hydrometer > HydrometerPropertyType.Hydrometer
+ Ref: HydrometerType.sedimentationData > SedimentationPropertyType.Sedimentation
+ Ref: SieveAnalysisType.gradingData > GradingPropertyType.Grading
+Ref: LabCompactionTestType.trial > LabCompactionTestTrialPropertyType.LabCompactionTestTrial
