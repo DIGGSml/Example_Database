@@ -1,0 +1,138 @@
+// Use DBML to define your database structure
+// Docs: https://dbml.dbdiagram.io/docs
+Table _Rig {
+  _Rig_ID text [primary key]
+  _rigDescription text
+  hammerType text
+  hammerMass real
+  hammerDropHeight real
+  hammerEfficiency real
+}
+
+Table _Rods {
+  _Rod_ID text [primary key]
+  rodType text
+  rodExternalDiameter real
+  rodWeight real
+}
+
+Table _Project {
+  _Project_ID text [primary key]
+  Project text
+}
+
+Table _Borehole {
+  _Borehole_ID text [primary key]
+  _Rig_ID text
+  _Project_ID text
+  Borehole text
+  pos_Latitude real
+  pos_Longitude real
+  pos_ground_surface real
+  TimeInterval_start timestamp
+  TimeInterval_end timestamp
+}
+
+Table _waterLevels {
+  _Borehole_ID text
+  waterDepth real
+}
+
+Table _wireLine {
+  _Sample_ID text
+  runNumber integer
+  bhaRunNumber integer
+  logParameter real
+}
+
+Table _Samples {
+  _Sample_ID text [primary key]
+  _Borehole_ID text
+  pos_topDepth real
+  pos_bottomDepth real
+}
+
+Table _SPT{
+  _Sample_ID text
+  _Rod_ID text
+  penetrationTestType text
+  samplerLength real
+  samplerInternalDiameter real
+  samplerLinerDescription real
+  samplerRetainerDescription text
+  depthCasing real
+  selfWeightPenetration real
+  totalPenetration real
+  blowCount_index1 integer
+  penetration_index1 real
+  delay_index1 real
+  torque_index1 real
+  blowCount_index2 integer
+  penetration_index2 real
+  delay_index2 real
+  torque_index2 real
+  blowCount_index3 integer
+  penetration_index3 real
+  delay_index3 real
+  torque_index3 real
+  blowCount_index4 integer
+  penetration_index4 real
+  delay_index4 real
+  torque_index4 real
+}
+
+Table SpecifiGravityTestType {
+  _Sample_ID text
+  waterTemperature real
+  temperatureWaterAndSoil real
+  correctionFactorForWaterTemperature real
+}
+
+Table WaterContentTestType {
+  _Sample_ID text
+  waterContentFromTrimmings real
+  dryingTemperature real
+  dryingTime real
+}
+
+Table PorePressureElementType {
+  cellId text [primary key]
+  filterElementLocation real
+  poreCapacity real
+  porousElementType text
+  saturationFluid text
+  saturationMethod text
+  saturationMethodRef text
+}
+
+Table StaticConePenetrationTestType {
+  _Sample_ID text
+  cellId text
+  penetrometerType text
+  distanceTipToSleeve real
+  frictionReducer text
+  frictionSleeveArea text
+  netAreaRatioCorrection text
+  penetrationRate real
+  piezoconeType text
+  porePressureElementInfo text
+  pushRodType text
+  tipCapacity real
+  sleeveCapacity real
+  surfaceCapacity real
+  tipApexAngle real
+  tipArea real
+
+}
+
+Ref: _waterLevels._Borehole_ID > _Borehole._Borehole_ID
+Ref: _Borehole._Rig_ID > _Rig._Rig_ID
+Ref: _Borehole._Project_ID > _Project._Project_ID
+Ref: _Samples._Borehole_ID > _Borehole._Borehole_ID
+Ref: _wireLine._Sample_ID> _Samples._Sample_ID
+Ref: _SPT._Sample_ID> _Samples._Sample_ID
+Ref: _SPT._Rod_ID> _Rods._Rod_ID
+Ref: SpecifiGravityTestType._Sample_ID> _Samples._Sample_ID
+Ref: WaterContentTestType._Sample_ID> _Samples._Sample_ID
+Ref: StaticConePenetrationTestType._Sample_ID> _Samples._Sample_ID
+Ref: StaticConePenetrationTestType.cellId> PorePressureElementType.cellId
